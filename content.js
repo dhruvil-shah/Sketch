@@ -1,5 +1,4 @@
 console.log('sketch blah');
-
 let eraseEnable = false;
 var s = function(sketch) {
   sketch.setup = function() {
@@ -13,7 +12,6 @@ var s = function(sketch) {
   };
 
   sketch.draw = function() {
-    sketch.stroke(10);
     sketch.strokeWeight(sketch.size!=null ?sketch.size:1);
     sketch.smooth(10);
     if (sketch.mouseIsPressed) {
@@ -24,29 +22,32 @@ var s = function(sketch) {
   sketch.toggleErase=function() {
     sketch.erase();
   }
-  sketch.pen1=function(){
+  sketch.pen1=()=>{
     sketch.noErase();
     sketch.size=1;
     sketch.draw();
   }
-  sketch.pen2=function(){
+  sketch.pen2=()=>{
     sketch.noErase();
     sketch.size=5;
     sketch.draw();
   }
 
-  sketch.pen3=function(){
+  sketch.pen3=()=>{
     sketch.noErase();
     sketch.size=10;
     sketch.draw();
   }
 
-  sketch.pen4=function(){
+  sketch.pen4=()=>{
     sketch.noErase();
     sketch.size=20;
     sketch.draw();
   }
-
+  sketch.colo=(col)=>{
+    console.log(col.toString());
+    sketch.stroke(col.toString());
+  }
 
 };
 
@@ -75,6 +76,11 @@ chrome.runtime.onMessage.addListener(
     else if(request.message==="pen4"){
       console.log("pen4");
       myp5.pen4();
+    }
+    else if(request.message==="color"){
+      console.log("color");
+      console.log(request.value);
+      myp5.colo(request.value);
     }
   }
 );
