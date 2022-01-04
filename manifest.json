@@ -1,0 +1,16 @@
+{
+    "manifest_version": 2,
+    "name": "Sketch Extension",
+    "description": "This extension is used to sketch on a google page",
+    "version": "1.0",
+    "content_scripts": [
+        {
+          "matches": ["<all_urls>"],
+          "js": ["p5.js","content.js"]
+        }
+      ],
+    "permissions": [ "tabs"],
+    "browser_action": {
+        "default_popup": "index.html"
+    }
+}
