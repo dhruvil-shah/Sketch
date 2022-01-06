@@ -48,7 +48,15 @@ var s = function(sketch) {
     console.log(col.toString());
     sketch.stroke(col.toString());
   }
-
+  sketch.txt=()=>{
+    console.log("text called");
+    sketch.textSize(100);
+    sketch.text("hello",sketch.pmouseX,sketch.pmouseY);
+  }
+  sketch.clearall=()=>{
+    console.log("clear called");
+    sketch.clear();
+  }
 };
 
 
@@ -81,6 +89,14 @@ chrome.runtime.onMessage.addListener(
       console.log("color");
       console.log(request.value);
       myp5.colo(request.value);
+    }
+    else if(request.message==="text"){
+      console.log("text");
+      myp5.txt();
+    }
+    else if(request.message==="clearall"){
+      console.log("clear all ");
+      myp5.clearall();
     }
   }
 );

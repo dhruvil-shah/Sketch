@@ -12,8 +12,15 @@
     "background": {
       "scripts": ["p5.js","background.js"]
     },
-    "permissions": [ "tabs"],
+    "permissions": [ "storage",
+      "tabs",
+      "activeTab",
+      "http://*/*", 
+      "https://*/*",
+      "contextMenus",
+      "background",
+      "notifications"],
     "browser_action": {
-        "default_popup": "index.html"
-    }
+        "default_popup": "index.html"}
+    
 }
