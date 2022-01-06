@@ -50,11 +50,18 @@ function clearall(){
   });
 }
 
+function text(){
+  console.log("text");
+  chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+  var activeTab = tabs[0];
+  chrome.tabs.sendMessage(activeTab.id, {message: "text",data:document.getElementById('getText').value});
+  });
+}
 document.getElementById("erase").addEventListener("click", erase);
 document.getElementById("pen1").addEventListener("click", pen1);
 document.getElementById("pen2").addEventListener("click", pen2);
 document.getElementById("pen3").addEventListener("click", pen3);
 document.getElementById("pen4").addEventListener("click", pen4);
 document.getElementById("apply").addEventListener("click", color);
-// document.getElementById("text").addEventListener("click", text);
+document.getElementById("text").addEventListener("click", text);
 document.getElementById("clearall").addEventListener("click", clearall);

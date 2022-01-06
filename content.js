@@ -1,3 +1,12 @@
+var cursor_x = -1;
+var cursor_y = -1;
+document.onmousemove = function(event)
+    {
+     console.log("mouse clicked");
+     cursor_x = event.pageX;
+     cursor_y = event.pageY;
+    console.log(event);
+    }
 console.log('sketch blah');
 let eraseEnable = false;
 var s = function(sketch) {
@@ -48,10 +57,13 @@ var s = function(sketch) {
     console.log(col.toString());
     sketch.stroke(col.toString());
   }
-  sketch.txt=()=>{
+  sketch.txt=(data)=>{
     console.log("text called");
-    sketch.textSize(100);
-    sketch.text("hello",sketch.pmouseX,sketch.pmouseY);
+    sketch.textSize(30);
+    let pos=window.localStorage.getItem("position");
+    pos=JSON.parse(pos);
+    console.log(pos.x,pos.y);
+    sketch.text(data,cursor_x,cursor_y);
   }
   sketch.clearall=()=>{
     console.log("clear called");
@@ -92,11 +104,19 @@ chrome.runtime.onMessage.addListener(
     }
     else if(request.message==="text"){
       console.log("text");
-      myp5.txt();
+      myp5.txt(request.data);
     }
     else if(request.message==="clearall"){
       console.log("clear all ");
       myp5.clearall();
     }
+    else if(request.message==="save_position"){
+      console.log("save position");
+      window.localStorage.setItem("position",JSON.stringify({
+        x:cursor_x,
+        y:cursor_y
+      }));
+    }
   }
 );
+
