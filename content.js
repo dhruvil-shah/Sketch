@@ -1,12 +1,6 @@
 var cursor_x = -1;
 var cursor_y = -1;
-document.onmousemove = function(event)
-    {
-     console.log("mouse clicked");
-     cursor_x = event.pageX;
-     cursor_y = event.pageY;
-    console.log(event);
-    }
+
 console.log('sketch blah');
 let eraseEnable = false;
 var s = function(sketch) {
@@ -20,6 +14,17 @@ var s = function(sketch) {
     sketch.clear();
   };
 
+  sketch.mouseClicked=(e)=>{
+    const scrollTop=document.documentElement.scrollTop;
+    const target = e.target;
+    const rect = target.getBoundingClientRect();
+    cursor_x= e.clientX ;
+    cursor_y= e.clientY +scrollTop;
+    console.log(scrollTop);
+    console.log(e);
+    console.log("new");
+  }
+
   sketch.draw = function() {
     sketch.strokeWeight(sketch.size!=null ?sketch.size:1);
     sketch.smooth(10);
@@ -27,7 +32,7 @@ var s = function(sketch) {
       sketch.line(sketch.mouseX, sketch.mouseY, sketch.pmouseX, sketch.pmouseY);
     }
   };
-
+  
   sketch.toggleErase=function() {
     sketch.erase();
   }
@@ -60,9 +65,10 @@ var s = function(sketch) {
   sketch.txt=(data)=>{
     console.log("text called");
     sketch.textSize(30);
-    let pos=window.localStorage.getItem("position");
-    pos=JSON.parse(pos);
-    console.log(pos.x,pos.y);
+    // sketch.size=1;
+    // let pos=window.localStorage.getItem("position");
+    // pos=JSON.parse(pos);
+    console.log(cursor_x,cursor_y);
     sketch.text(data,cursor_x,cursor_y);
   }
   sketch.clearall=()=>{
@@ -112,6 +118,7 @@ chrome.runtime.onMessage.addListener(
     }
     else if(request.message==="save_position"){
       console.log("save position");
+      console.log(cursor_x+" "+cursor_y);
       window.localStorage.setItem("position",JSON.stringify({
         x:cursor_x,
         y:cursor_y

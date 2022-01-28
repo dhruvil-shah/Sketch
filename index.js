@@ -12,21 +12,22 @@ function pen1() {
   chrome.tabs.sendMessage(activeTab.id, {message: "pen1"});
 });
 }
-  function pen2() {
+  function pen2(){
     console.log("pen2 called");
     chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
     var activeTab = tabs[0];
     chrome.tabs.sendMessage(activeTab.id, {message: "pen2"});
 });
 }
-function pen3() {
+function pen3(){
     console.log("pen3 called");
     chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
     var activeTab = tabs[0];
     chrome.tabs.sendMessage(activeTab.id, {message: "pen3"});
 });
+
 }
-function pen4() {
+function pen4(){
   console.log("pen4 called");
   chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
   var activeTab = tabs[0];
@@ -49,6 +50,8 @@ function clearall(){
   chrome.tabs.sendMessage(activeTab.id, {message: "clearall"});
   });
 }
+
+
 
 function text(){
   console.log("text");

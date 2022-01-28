@@ -7,7 +7,7 @@ function text(tab) {
         });
   }
   chrome.contextMenus.create({
-    title: "Text",
+    title: "Save Position",
     onclick:text
   });
 
