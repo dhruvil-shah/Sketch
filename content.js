@@ -1,11 +1,13 @@
+
 var cursor_x = -1;
 var cursor_y = -1;
+
 
 console.log('sketch blah');
 let eraseEnable = false;
 var s = function(sketch) {
   sketch.setup = function() {
-    document.body.style['userSelect'] = 'none';
+    document.body.style['userSelect'] = "none";
     let h = document.body.scrollHeight;
     let w=document.documentElement.scrollWidth;
     let c = sketch.createCanvas(w, h);
@@ -68,12 +70,24 @@ var s = function(sketch) {
     // sketch.size=1;
     // let pos=window.localStorage.getItem("position");
     // pos=JSON.parse(pos);
+    sketch.stroke('white');
     console.log(cursor_x,cursor_y);
     sketch.text(data,cursor_x,cursor_y);
+    sketch.stroke('black');
   }
   sketch.clearall=()=>{
     console.log("clear called");
     sketch.clear();
+  }
+  sketch.toggle=()=>{
+    if(document.body.style['userSelect'] ==="none"){
+        console.log("hell");
+        document.body.style['userSelect'] ="auto"
+        sketch.size=0;
+      }else{
+        document.body.style['userSelect'] ="none"
+        sketch.size=1;
+      }
   }
 };
 
@@ -123,6 +137,18 @@ chrome.runtime.onMessage.addListener(
         x:cursor_x,
         y:cursor_y
       }));
+    }
+    else if(request.message==="screenshot"){
+      console.log("screenshot");
+      screenshot().then((img) => {
+        console.log(img);
+      }).catch((err) => {
+        console.log(err);
+      })
+    }
+    else if(request.message==="toggle"){
+      console.log("toggle");
+      myp5.toggle();
     }
   }
 );

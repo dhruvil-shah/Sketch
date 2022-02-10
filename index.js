@@ -1,3 +1,22 @@
+
+
+// document.querySelector('.shot').addEventListener('click', function() {
+//   html2canvas(document.querySelector('body'), {
+//       onrendered: function(canvas) {
+//         return Canvas2Image.saveAsPNG(canvas);
+//       }
+//   });
+// });
+function screenshot() {
+  console.log("screenshot called");
+  chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+  var activeTab = tabs[0];
+  chrome.tabs.sendMessage(activeTab.id, {message: "screenshot"});
+});
+}
+
+
+
 function erase() {
     console.log("erased called");
     chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
@@ -60,6 +79,15 @@ function text(){
   chrome.tabs.sendMessage(activeTab.id, {message: "text",data:document.getElementById('getText').value});
   });
 }
+
+function toggle(){
+  console.log("toggle");
+  chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+  var activeTab = tabs[0];
+  chrome.tabs.sendMessage(activeTab.id, {message: "toggle"});
+  });
+}
+
 document.getElementById("erase").addEventListener("click", erase);
 document.getElementById("pen1").addEventListener("click", pen1);
 document.getElementById("pen2").addEventListener("click", pen2);
@@ -67,4 +95,6 @@ document.getElementById("pen3").addEventListener("click", pen3);
 document.getElementById("pen4").addEventListener("click", pen4);
 document.getElementById("apply").addEventListener("click", color);
 document.getElementById("text").addEventListener("click", text);
+document.getElementById("toogle").addEventListener("click", toggle);
+document.getElementById("shot").addEventListener("click", screenshot);
 document.getElementById("clearall").addEventListener("click", clearall);
