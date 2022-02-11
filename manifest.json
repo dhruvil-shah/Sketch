@@ -9,6 +9,7 @@
           "js": ["p5.js","content.js","html2canvas.js"]
         }
       ],
+      "web_accessible_resources": ["html2canvas.js"],
       "icons": {
         "16": "icon16.png",
         "48": "icon48.png",
@@ -16,6 +17,7 @@
     "background": {
       "scripts": ["background.js"]
     },
+    
     "permissions": [ "storage",
       "tabs",
       "activeTab",

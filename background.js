@@ -10,5 +10,14 @@ function text(tab) {
     title: "Save Position",
     onclick:text
   });
+  chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.message==="screenshot") {
+      chrome.tabs.captureVisibleTab(null, null, function(dataUrl) {
+        console.log(dataUrl);
+        sendResponse({ response: dataUrl });
+    });
+    }
+    return true
+});
 
 

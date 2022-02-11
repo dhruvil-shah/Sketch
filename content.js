@@ -1,3 +1,10 @@
+// 'use strict';
+
+// const script = document.createElement('script');
+// script.setAttribute("type", "module");
+// script.setAttribute("src", chrome.extension.getURL('html2canvas.js'));
+// const head = document.head || document.getElementsByTagName("head")[0] || document.documentElement;
+// head.insertBefore(script, head.lastChild);
 
 var cursor_x = -1;
 var cursor_y = -1;
@@ -140,11 +147,18 @@ chrome.runtime.onMessage.addListener(
     }
     else if(request.message==="screenshot"){
       console.log("screenshot");
-      screenshot().then((img) => {
-        console.log(img);
-      }).catch((err) => {
-        console.log(err);
-      })
+      chrome.runtime.sendMessage({message:"screenshot"},(resp)=>{
+      console.log(resp.response);
+      let source=resp.response
+      
+      const fileName = source.split('/').pop();
+      var el = document.createElement("a");
+      el.setAttribute("href", source);
+      el.setAttribute("download", fileName);
+      document.body.appendChild(el);
+      el.click();
+      el.remove();
+    });
     }
     else if(request.message==="toggle"){
       console.log("toggle");
